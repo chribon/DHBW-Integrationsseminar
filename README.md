@@ -10,12 +10,12 @@
 
 |Bearbeiter|GitHub-Name|
 |----------|--------|
-|Christian Bonfert|chribon|
-|Katharina Ehrmann|kela4|
-|Maria Fladung|gramoerpsel|
-|Lukas Habermann|lh-alcatraz|
-|Roman Nolde| *** |
-|Tom Schmelzer|schmelto|
+|Christian Bonfert|[chribon](https://github.com/chribon)|
+|Katharina Ehrmann|[kela4](https://github.com/kela4)|
+|Maria Fladung|[gramoerpsel](https://github.com/gramoerpsel)|
+|Lukas Habermann|[lh-alcatraz](https://github.com/lh-alcatraz)|
+|Roman Nolde| [ *** ](https://github.com/)|
+|Tom Schmelzer|[schmelto](https://github.com/schmelto)|
 
 
 

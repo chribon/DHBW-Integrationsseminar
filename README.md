@@ -10,7 +10,7 @@
 
 |Bearbeiter|GitHub-Name|
 |----------|--------|
-|Christian Bonfert|chrisbon|
+|Christian Bonfert|chribon|
 |Katharina Ehrmann|kela4|
 |Maria Fladung|gramoerpsel|
 |Lukas Habermann|lh-alcatraz|

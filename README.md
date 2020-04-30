@@ -6,3 +6,16 @@
 * Art der Datenspeicherung in dem HDP-Cluster eruieren und anschließend Konzeption einer geeigneten Datenablage
 * Implementierung einer Lösung zur Datenerfassung und Datenablage in dem HDP-Cluster
 * Performancetests der Datenablage
+
+
+|Bearbeiter|GitHub-Name|
+|----------|--------|
+|Christian Bonfert|chrisbon|
+|Katharina Ehrmann|kela4|
+|Maria Fladung|gramoerpsel|
+|Lukas Habermann|lh-alcatraz|
+|Roman Nolde| *** |
+|Tom Schmelzer|schmelto|
+
+
+

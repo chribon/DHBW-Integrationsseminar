@@ -86,5 +86,6 @@ for entry in specifiedObjectsAndMethods():
             print(str(entry[0]) + "_" + str(entry[1]) + ": domain saved (" + str(counter) + ") " + str(dt.datetime.now()))
         else: print(str(entry[0]) + "_" + str(entry[1]) + ': ERROR ' + str(dt.datetime.now()))
     else: print(str(entry[0]) + "_" + str(entry[1]) + ': leer ' + str(dt.datetime.now()))
-    
+
+cursor.close()
 print("Fertig! " + str(dt.datetime.now()))

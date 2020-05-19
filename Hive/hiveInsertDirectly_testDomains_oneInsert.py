@@ -2,7 +2,6 @@ import requests
 import json
 import numpy as np
 from pyhive import hive
-import hdfs
 import datetime as dt
 
 print("Start: " + str(dt.datetime.now()))
@@ -10,11 +9,7 @@ print("Start: " + str(dt.datetime.now()))
 # Hive base
 cursor = hive.connect(host="ubuha01.wi.lehre.mosbach.dhbw.de"
                       , port=10000, username="hive", password="admin"
-                      , database="mesdatapythonviahdfs", auth='CUSTOM').cursor()
-      
-
-# HDFS base
-client_hdfs = hdfs.InsecureClient('http://ubuhama.wi.lehre.mosbach.dhbw.de:50070', user="hive")
+                      , database="mesdatapython", auth='CUSTOM').cursor()
                      
 # API base
 url_meta = "http://10.50.12.131:8080/meta/"
@@ -44,7 +39,7 @@ def specifiedObjectsAndMethods():
     ]
     return classesAndMethodsWithList
 
-# start querying     
+# start querying  
 counter = 0
 
 for entry in specifiedObjectsAndMethods():
@@ -58,7 +53,7 @@ for entry in specifiedObjectsAndMethods():
         metainfos = response_json_data[0]
         datatype = metainfos['__type']
         
-        dbname = "mesdatapythonviahdfs"
+        dbname = "mesdatapython"
         tblname = str(entry[0]) + "_" + str(entry[1]) + "_" + str(datatype)
 
         if(datatype != 'ERROR'):
@@ -73,29 +68,23 @@ for entry in specifiedObjectsAndMethods():
                 columns = columns + ", " + col['name'].replace(".", "_") + " " + coltype
             
             # create table
-            cursor.execute("DROP TABLE IF EXISTS " + dbname + ".data_tt")
-            sql = "CREATE TABLE " + dbname + ".data_tt (" + columns[2:] + ") ROW FORMAT DELIMITED FIELDS TERMINATED BY ';' STORED AS TEXTFILE"
+            cursor.execute("DROP TABLE IF EXISTS " + dbname + "." + tblname)
+            sql = "CREATE TABLE " + dbname + "." + tblname + " (" + columns[2:] + ")"
             cursor.execute(sql)
-            
-            # -----------DATA-------------
-            # save data as csv in hdfs
-            data_toSave = []
+
+            allValues = ""
+               
             for row in response_json_data:
                 if row['__rowType'] == 'DATA':
-                    data_toSave.append(row['data'])
-            hdfs_path = "tmp/data/mesdata/data.csv"
-            with client_hdfs.write(hdfs_path, encoding = 'utf-8', overwrite=True) as writer:
-                np.savetxt(writer, data_toSave, delimiter=";", fmt='%s')
-            
-            # insert data in data_tt
-            cursor.execute("LOAD DATA INPATH 'hdfs://ubuhama.wi.lehre.mosbach.dhbw.de:8020/user/hive/tmp/data/mesdata/' INTO TABLE " + dbname + ".data_tt")
-            client_hdfs.delete('tmp/data/mesdata/', recursive=True)
-            
-            # insert data in final table
-            cursor.execute("DROP TABLE IF EXISTS " + dbname + "." + tblname)
-            cursor.execute("CREATE TABLE " + dbname + "." + tblname + " AS SELECT * FROM " + dbname + ".data_tt")
-            cursor.execute("DROP TABLE IF EXISTS " + dbname + ".data_tt")
-            
+                    # insert data in table
+                    vals = row['data']
+                    strVals = str(vals)
+                    allValues = allValues + "(" + strVals[1:len(strVals)-1] + "), "
+
+            allValues = allValues[:len(allValues)-2]
+            sql = "INSERT INTO " + dbname + "." + tblname + " VALUES " + allValues
+            cursor.execute(sql.replace('None', 'null'))
+                        
             counter+=1
             print(str(entry[0]) + "_" + str(entry[1]) + ": domain saved (" + str(counter) + ") " + str(dt.datetime.now()))
         else: print(str(entry[0]) + "_" + str(entry[1]) + ': ERROR ' + str(dt.datetime.now()))

@@ -57,14 +57,14 @@ def specifiedDomainsAndServices():
 # start querying  
 counter = 0
 
-for entry in specifiedDomainsAndServices():
+for entry in allDomainsAndServices():
     # send request, get response
     try:
         url_data = api_url + "/data/" + str(entry[0]) + "/" + str(entry[1])
-        response_data = requests.request("GET", url_data, headers=headers)
+        response_data = requests.request("GET", url_data, headers=headers, timeout=60)
     except:
-        print("Keine Verbindung zur MES Hydra API möglich. Eine Domain ist nicht erreichbar. Die Ausführung wird abgebrochen.") 
-        sys.exit()
+        print(str(entry[0]) + "_" + str(entry[1]) + " ist nicht erreichbar. Die Domain wird übersprungen.") 
+        continue
     response_json_data = json.loads(response_data.text)
     entryTimestamp = str(dt.datetime.now())
 

@@ -36,7 +36,7 @@ try:
     'Authorization': 'Basic UmVzdHVzZXI6S2VubndvcnQwNA==',
     'Cookie': 'JSESSIONID=AAC2EFBE19BC028C7CE932443375F13B'
     }
-    response_meta = requests.request("GET", url_meta, headers=headers)
+    response_meta = requests.request("GET", url_meta, headers=headers, timeout=60)
 except:
     print("Keine Verbindung zur MES Hydra API möglich. Die Ausführung wird abgebrochen.") 
     sys.exit()

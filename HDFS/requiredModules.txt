@@ -1,0 +1,9 @@
+# Python standard libary:
+sys
+datetime
+json
+
+# further modules:
+requests==2.23.0
+numpy==1.18.4
+hdfs==2.5.8

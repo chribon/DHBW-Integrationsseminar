@@ -40,17 +40,6 @@ def allDomainsAndServices():
         if(split[1][ 0 : 4 ] == 'list'):
             domainsAndServicesWithList.append(split)
     return domainsAndServicesWithList
-            
-def specifiedDomainsAndServices():
-    # enter domains and Services by your own:
-    domainsAndServicesWithList = [
-        #["BOOrder", "list"],        
-        #["MDWorkplanOrder", "list"],
-        #["MDWorkplanOperation", "list"],
-        #["BOResource", "list"],
-        #["SamplingPlan", "list"]
-    ]
-    return domainsAndServicesWithList
 
 # start querying  
 counter = 0

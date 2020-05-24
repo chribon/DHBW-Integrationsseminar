@@ -36,7 +36,7 @@ except:
 response_json_meta = json.loads(response_meta.text)
 
 # list of domains and services to be queried:
-def allDomainsAndServices(): # warning: duration for load and save all data ist very high!
+def allDomainsAndServices():
     domainsAndServicesWithList = []
     for entry in response_json_meta:
         split = entry.split('.')
@@ -73,7 +73,7 @@ for entry in allDomainsAndServices():
         metainfos = response_json_data[0]
         datatype = metainfos['__type']
         
-        tblname = str(entry[0]) + "_" + str(entry[1]) + "_" + str(datatype)
+        tblname = str(entry[0]) + "_" + str(entry[1])
 
         if(datatype != 'ERROR'):
             metadata = metainfos['data']
@@ -106,15 +106,13 @@ for entry in allDomainsAndServices():
                 hql = "INSERT INTO " + dbname + "." + tblname + " VALUES " + allValues
                 cursor.execute(hql.replace('None', 'null'))
             except:
-                print("Abspeicherung im Hive nicht möglich. Domain wird übersprungen.")
-                print(str(entry[0]) + "_" + str(entry[1]) + ': FEHLER ' + str(dt.datetime.now()))
+                print(str(entry[0]) + "_" + str(entry[1]) + ': Abspeicherung im Hive nicht möglich. Domain wird übersprungen. ' + str(dt.datetime.now()))
             else:
                 counter+=1
-                print(str(entry[0]) + "_" + str(entry[1]) + ": Domain gespeichert (" + str(counter) + ") " + str(dt.datetime.now()))
-        else: print(str(entry[0]) + "_" + str(entry[1]) + ': FEHLER ' + str(dt.datetime.now()))
-    else: print(str(entry[0]) + "_" + str(entry[1]) + ': leer ' + str(dt.datetime.now()))
+                print(str(entry[0]) + "_" + str(entry[1]) + ": Domain gespeichert. (Gesamt gespeichert: " + str(counter) + " Stück) " + str(dt.datetime.now()))
+        else: print(str(entry[0]) + "_" + str(entry[1]) + ': API liefert Fehler, manuelle Parameterauswahl erforderlich. Domain wird übersprungen. ' + str(dt.datetime.now()))
+    else: print(str(entry[0]) + "_" + str(entry[1]) + ': leer. Domain wird übersprungen. ' + str(dt.datetime.now()))
 
 cursor.close()
 print("Fertig! " + str(dt.datetime.now()))
-
-input("Zum Beenden eine Taste drücken...")
+#input("Zum Beenden eine Taste drücken...")

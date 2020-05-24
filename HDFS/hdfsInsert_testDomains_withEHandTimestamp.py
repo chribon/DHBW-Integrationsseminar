@@ -33,7 +33,7 @@ except:
 response_json_meta = json.loads(response_meta.text)
 
 # list of domains and services to be queried:
-def allDomainsAndServices(): # warning: duration for load and save all data ist very high!
+def allDomainsAndServices():
     domainsAndServicesWithList = []
     for entry in response_json_meta:
         split = entry.split('.')
@@ -84,18 +84,16 @@ for entry in allDomainsAndServices():
                 if row['__rowType'] == 'DATA':
                     data_toSave.append(row['data'])
             try:
-                hdfs_path = hdfs_folder + str(entry[0]) + "_" + str(entry[1]) + "_" + str(datatype) + "_" + entryTimestamp + ".csv"
+                hdfs_path = hdfs_folder + str(entry[0]) + "_" + str(entry[1]) + "_" + entryTimestamp + ".csv"
                 with client_hdfs.write(hdfs_path, encoding = 'utf-8', overwrite=True) as writer:
                     np.savetxt(writer, data_toSave, delimiter=";", fmt='%s')
             except:
-                print("Abspeicherung im HDFS nicht möglich. Domain wird übersprungen.")
-                print(str(entry[0]) + "_" + str(entry[1]) + ': FEHLER ' + str(dt.datetime.now()))
+                print(str(entry[0]) + "_" + str(entry[1]) + ': Abspeicherung im HDFS nicht möglich. Domain wird übersprungen. ' + str(dt.datetime.now()))
             else:
                 counter+=1
-                print(str(entry[0]) + "_" + str(entry[1]) + ": Domain gespeichert (" + str(counter) + ") " + str(dt.datetime.now()))
-        else: print(str(entry[0]) + "_" + str(entry[1]) + ': FEHLER ' + str(dt.datetime.now()))
-    else: print(str(entry[0]) + "_" + str(entry[1]) + ': leer ' + str(dt.datetime.now()))
+                print(str(entry[0]) + "_" + str(entry[1]) + ": Domain gespeichert. (Gesamt gespeichert: " + str(counter) + " Stück) " + str(dt.datetime.now()))
+        else: print(str(entry[0]) + "_" + str(entry[1]) + ': API liefert Fehler, manuelle Parameterauswahl erforderlich. Domain wird übersprungen. ' + str(dt.datetime.now()))
+    else: print(str(entry[0]) + "_" + str(entry[1]) + ': leer. Domain wird übersprungen. ' + str(dt.datetime.now()))
     
 print("Fertig! " + str(dt.datetime.now()))
-
-input("Zum Beenden eine Taste drücken...")
+#input("Zum Beenden eine Taste drücken...")

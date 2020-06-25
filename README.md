@@ -8,6 +8,19 @@
 * Performancetests der Datenablage
 
 
+
+AUFBAU
+-	API_Inspection
+        Dieser Ordner enthält ein Jupyter Notebook, das während der Sichtung der MES Hydra API erstellt wurde und in dem z. B. die Anzahlen der Domains ermittelt wurden und aufgelistet sind. Zudem sind die einzelnen Übersichten von Domains und Services im JSON-Format abgelegt.
+-	HDFS
+        Abgelegt sind hier das für den Performancetest genutzte Python-Skript und ein Skript, das alle API-Endpunkte abfragt. Zusätzlich ist eine Auflistung aller zu installierenden Python-Module vorhanden.
+-	Hive
+        Neben einer Datei mit den zu installierenden Python-Modulen ist das Python-Skript zur Abfrage und Ablage aller API-Endpunkte enthalten und das für die Performancetests verwendete Skript. Hierbei handelt es sich je um Variante drei, die die Zwischenspeicherung im HDFS nutzt. Die unter Kapitel 4.4 Bereich Python Eigenentwicklung beschriebenen Varianten eins und zwei sind im Unterordner 'variants1and2' abgelegt.
+-	Dokumentation
+        Hier ist das ausgearbeitete Dokument zu finden.
+
+
+
 |Bearbeiter|GitHub-Name|
 |----------|--------|
 |Christian Bonfert|[chribon](https://github.com/chribon)|

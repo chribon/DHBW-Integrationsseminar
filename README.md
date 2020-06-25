@@ -9,7 +9,7 @@
 
 
 
-## AUFBAU
+## Aufbau des Repos
 ### API_Inspection
 Dieser Ordner enthält ein Jupyter Notebook, das während der Sichtung der MES Hydra API erstellt wurde und in dem z. B. die Anzahlen der Domains ermittelt wurden und aufgelistet sind. Zudem sind die einzelnen Übersichten von Domains und Services im JSON-Format abgelegt.
 ### HDFS
@@ -20,8 +20,8 @@ Neben einer Datei mit den zu installierenden Python-Modulen ist das Python-Skrip
 Hier ist das ausgearbeitete Dokument zu finden.
 
 
-
-|Bearbeiter|GitHub-Name|
+## Projektmitglieder
+|Name|GitHub-Name|
 |----------|--------|
 |Christian Bonfert|[chribon](https://github.com/chribon)|
 |Katharina Ehrmann|[kela4](https://github.com/kela4)|
